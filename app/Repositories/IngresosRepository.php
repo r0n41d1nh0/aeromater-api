@@ -29,7 +29,7 @@ class IngresosRepository implements IngresosRepositoryInterface
             )
             ->join('GENPERSONA', 'GENINGRESO.ID_GENPERSONA', '=', 'GENPERSONA.ID_GENPERSONA')
             ->leftjoin('EXTEMPRESA', 'GENINGRESO.ID_EXTEMPRESA', '=', 'EXTEMPRESA.ID_EXTEMPRESA')
-            ->where('GENINGRESO.FECHAINGRESO', '=','2024-01-09')
+            ->where('GENINGRESO.FECHAINGRESO', '=','2024-02-27')
             ->orderByDesc('GENINGRESO.FECHAINGRESO')
             ->orderByDesc('GENINGRESO.HORAINGRESO')
             ->get();
