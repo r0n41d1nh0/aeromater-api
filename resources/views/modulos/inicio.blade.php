@@ -3,7 +3,7 @@
     <h1 class="mt-5">Módulos</h1>
     <p class="lead">Bienvenido al Sistema de Administración de AEROMATER Elija una de las siguentes opciones:</p>
     <ul>
-        <li><a href="">Ingresos</a></li>
+        <li><a href="{{ route('ingresos') }}">Ingresos</a></li>
         <li><a href="">Balanza</a></li>
         <li><a href="">Archivo</a></li>
         <li><a href="">Reportes</a></li>

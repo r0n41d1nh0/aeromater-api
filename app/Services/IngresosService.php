@@ -17,4 +17,9 @@ class IngresosService
     {
         return $this->ingresosRepository->listarIngresosDelDia();
     }
+
+    public function listarIngresos($nombres,$fecha_desde,$fecha_hasta,$sin_salida,$tipo_documento,$numero_documento)
+    {
+        return $this->ingresosRepository->listarIngresos($nombres,$fecha_desde,$fecha_hasta,$sin_salida,$tipo_documento,$numero_documento);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\IngresosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/ingresos-personal/listar', [IngresosController::class,'listar'])->name('ingresos');
+    Route::get('/ingresos-personal/nuevo', [IngresosController::class,'nuevo'])->name('ingresos.nuevo');
 });
 
 require __DIR__.'/auth.php';
