@@ -106,7 +106,7 @@
                     <td>{{ date('d/m/Y', strtotime($ingreso->FECHAINGRESO)) }} {{ $ingreso->HORAINGRESO }} </td>
                     <td>{{ isset($ingreso->FECHASALIDA) ? date('d/m/Y', strtotime($ingreso->FECHASALIDA)) : '' }} {{ isset($ingreso->HORASALIDA) ? $ingreso->HORASALIDA : '' }} </td>
                     <td>{{ $ingreso->MOTIVO }}</td>
-                    <td><a href="" class="">Ingreso</a></td>
+                    <td><a href="{{ route('ingresos.editar',[$ingreso->ID_GENPERSONA,$ingreso->FECHAINGRESO,$ingreso->HORAINGRESO]) }}" class="">Ingreso</a></td>
                 </tr>
                 @endforeach
             </tbody>
