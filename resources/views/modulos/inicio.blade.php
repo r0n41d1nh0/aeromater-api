@@ -6,7 +6,7 @@
         <li><a href="{{ route('ingresos') }}">Ingresos</a></li>
         <li><a href="">Balanza</a></li>
         <li><a href="">Archivo</a></li>
-        <li><a href="">Reportes</a></li>
+        <li><a href="{{ route('reportes') }}">Reportes</a></li>
         <!--<li><a href="modules/almacen/index.php">Almacen</a></li>
         <li><a href="modules/caja/index.php">Caja</a></li>
         <li><a href="modules/contabilidad/index.php">Contabilidad</a></li>

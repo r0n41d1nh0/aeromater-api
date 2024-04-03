@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\EmpresasController;
+use App\Http\Controllers\PaginasController;
+use App\Http\Controllers\ReportesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('modulos.inicio');
-    //return view('dashboard');
 })->middleware(['auth', 'verified'])->name('inicio');
 
 Route::get('/dashboard', function () {
@@ -41,7 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/personas/consultar-por-documento/tipo/{tipo_documento}/numero/{numero}', [PersonasController::class,'consultaPersona'])->name('personas.consulta');
 
     Route::get('/empresas/consultar-por-ruc/{ruc}', [EmpresasController::class,'consultaEmpresa'])->name('empresas.consulta');
-    
+
+    Route::get('/reportes', [PaginasController::class,'reportes'])->name('reportes');
+    Route::get('/reportes/salida-diaria', [ReportesController::class,'salida_diaria'])->name('reportes.salida_diaria');
+    Route::get('/reportes/reporte-salida-diaria', [ReportesController::class,'reporteSalidaDiaria'])->name('reportes.reporte_salida_diaria');
 });
 
 require __DIR__.'/auth.php';

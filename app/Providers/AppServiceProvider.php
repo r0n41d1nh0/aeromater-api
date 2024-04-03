@@ -6,12 +6,15 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\IngresosRepository;
 use App\Repositories\PersonasRepository;
 use App\Repositories\EmpresasRepository;
+use App\Repositories\ReportesRepository;
 use App\Repositories\IngresosRepositoryInterface;
 use App\Repositories\PersonasRepositoryInterface;
 use App\Repositories\EmpresasRepositoryInterface;
+use App\Repositories\ReportesRepositoryInterface;
 use App\Services\IngresosService;
 use App\Services\PersonasService;
 use App\Services\EmpresasService;
+use App\Services\ReportesService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(EmpresasRepositoryInterface::class, EmpresasRepository::class);
         $this->app->bind(EmpresasService::class, function ($app) { return new EmpresasService($app->make(EmpresasRepositoryInterface::class)); });
+
+        $this->app->bind(ReportesRepositoryInterface::class, ReportesRepository::class);
+        $this->app->bind(ReportesService::class, function ($app) { return new ReportesService($app->make(ReportesRepositoryInterface::class)); });
     }
 
     /**

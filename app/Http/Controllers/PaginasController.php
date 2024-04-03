@@ -10,4 +10,9 @@ class PaginasController extends Controller
 	{
 		return view('modulos.inicio');
 	}
+
+	public function reportes()
+	{
+		return view('modulos.reportes');
+	}
 }
