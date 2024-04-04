@@ -10,7 +10,7 @@
         <li>Balanza
             <ul>
                 <li><a href="{{ route('reportes.salida_diaria') }}">Salidas entre fechas</a></li>
-                <li><a href="">Consulta de manifiesto</a></li>
+                <li><a href="{{ route('reportes.manifiesto') }}">Consulta de manifiesto</a></li>
             </ul>
         </li>
         

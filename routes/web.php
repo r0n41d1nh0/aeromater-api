@@ -44,8 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/empresas/consultar-por-ruc/{ruc}', [EmpresasController::class,'consultaEmpresa'])->name('empresas.consulta');
 
     Route::get('/reportes', [PaginasController::class,'reportes'])->name('reportes');
-    Route::get('/reportes/salida-diaria', [ReportesController::class,'salida_diaria'])->name('reportes.salida_diaria');
+    Route::get('/reportes/salida-diaria', [ReportesController::class,'salidaDiaria'])->name('reportes.salida_diaria');
     Route::get('/reportes/reporte-salida-diaria', [ReportesController::class,'reporteSalidaDiaria'])->name('reportes.reporte_salida_diaria');
+    Route::get('/reportes/manifiesto', [ReportesController::class,'manifiesto'])->name('reportes.manifiesto');
+    Route::get('/reportes/reporte-manifiesto/{manifiesto}', [ReportesController::class,'reporteManifiesto'])->name('reportes.reporte_manifiesto');
 });
 
 require __DIR__.'/auth.php';

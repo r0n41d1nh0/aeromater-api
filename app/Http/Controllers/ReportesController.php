@@ -14,7 +14,7 @@ class ReportesController extends Controller
         $this->reportesService = $reportesService;
     }
 
-    public function salida_diaria(){
+    public function salidaDiaria(){
         return view('modulos.reportes.salida_diaria');
     }
 
@@ -25,5 +25,18 @@ class ReportesController extends Controller
         $datos=$this->reportesService->salidaDiaria($desde,$hasta);
         return view('modulos.reportes.reporte_salida_diaria',compact(['datos','desde','hasta']));
     }
-    
+
+    public function manifiesto(Request $request){
+        if(isset($request->tipo_ingreso)){
+            $datos=$this->reportesService->listaManifiesto($request->tipo_ingreso,$request->anio,$request->numero,$request->consignatario,$request->fecha_desde,$request->fecha_hasta);
+        } else {
+            $datos=[];
+        }
+        return view('modulos.reportes.manifiesto',compact(['datos']));
+    }
+
+    public function reporteManifiesto($manifiesto){
+        $datos=$this->reportesService->manifiesto($manifiesto);
+        return view('modulos.reportes.reporte_manifiesto',compact(['datos','manifiesto']));
+    }
 }
