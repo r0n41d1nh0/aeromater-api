@@ -39,4 +39,25 @@ class ReportesController extends Controller
         $datos=$this->reportesService->manifiesto($manifiesto);
         return view('modulos.reportes.reporte_manifiesto',compact(['datos','manifiesto']));
     }
+
+    public function ingresos(){
+        return view('modulos.reportes.ingresos');
+    }
+
+    public function reporteIngresos(Request $request){
+        $desde=$request->fecha_desde;
+        $hasta=$request->fecha_hasta;
+        $datos=$this->reportesService->ingresos($request->fecha_desde,$request->fecha_hasta,$request->tipo_ingreso);
+        return view('modulos.reportes.reporte_ingresos',compact(['datos','desde','hasta']));
+    }
+    public function movimientoConsignatario(){
+        return view('modulos.reportes.movimiento_consignatario');
+    }
+
+    public function reporteMovimientoConsignatario(Request $request){
+        $desde=$request->fecha_desde;
+        $hasta=$request->fecha_hasta;
+        $datos=$this->reportesService->reporteMovimientoConsignatario($request->fecha_desde,$request->fecha_hasta,$request->por,$request->valor);
+        return view('modulos.reportes.reporte_movimiento_consignatario',compact(['datos','desde','hasta']));
+    }
 }

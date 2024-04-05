@@ -61,4 +61,77 @@ class ReportesRepository implements ReportesRepositoryInterface
         
 		return array($manifiesto,$balanza,$carta,$salida);
     }
+
+    public function ingresos($fecha_desde,$fecha_hasta,$tipo)
+    {
+        $fecha_desde=date_format(date_create_from_format('d/m/Y', $fecha_desde), 'Y-m-d');
+        $fecha_hasta=date_format(date_create_from_format('d/m/Y', $fecha_hasta), 'Y-m-d');
+        return DB::select('select K_PROCEDENCIA,K_MANIFIESTO,K_FECHAINGRESO,K_MERCADERIA,K_EMPRESA,K_BULTOS,K_PESO from SP_BALLISTAINGRESO2_QRY(?, ?, ?)', array($fecha_desde,$fecha_hasta,$tipo));
+    }
+
+    public function reporteMovimientoConsignatario($fecha_desde,$fecha_hasta,$tipo,$valor)
+    {
+        $fecha_desde=date_format(date_create_from_format('d/m/Y', $fecha_desde), 'Y-m-d');
+        $fecha_hasta=date_format(date_create_from_format('d/m/Y', $fecha_hasta), 'Y-m-d');
+
+        $manifiestos=DB::select('select MANIFIESTO,FECHA,HORA,DESC_GENUMEDIDA from SP_ARCREPORTEMOVXCONSIG_QRY(?,?,?,?)',array($tipo,$valor,$fecha_desde,$fecha_hasta));
+        $arr_manifiesto=array();
+
+        foreach($manifiestos as $manifiesto){
+            $cartas=DB::select('
+                select ID_ADUCARTAPORTE, CODIGO_ADUCARTAPORTE, RAZON_EXTEMPRESA, DESCMERCADERIA_ADUCARTAPORTE, NROBULTOS_ADUCARTAPORTE, PESOBULTOS_ADUCARTAPORTE 
+                from sp_arcReporteAnualNivel2_qry(?)',array($manifiesto->MANIFIESTO));
+
+            $arr_carta=array();
+
+            foreach($cartas as $carta){
+
+                $duas=DB::select('select CODIGO_ADUDUA,FECHA,HORA,NUMERO_CAJGUIASALIDA,PROVBULTOS_CAJGUIASALIDA,PROVPESO_CAJGUIASALIDA from SP_ARCREPORTEANUALN3DUA(?)',array($carta->ID_ADUCARTAPORTE));
+                $arr_duas=array();
+                $total_salida=0;
+
+                foreach($duas as $dua){
+                    $choferes=DB::select('select K_CHOFER,K_PLACA from SP_ARCREPORTEMOVXCONSIGN3_QRY(?)',array($dua->NUMERO_CAJGUIASALIDA));
+                    $nombre_chofer="";
+                    $placa_chofer="";
+
+                    foreach($choferes as $chofer){
+                        $nombre_chofer=$chofer->K_CHOFER;
+                        $placa_chofer=$chofer->K_PLACA;
+                    }
+
+                    array_push($arr_duas,
+                        array(
+                            $dua->CODIGO_ADUDUA,
+                            $dua->FECHA,
+                            $dua->HORA,
+                            $dua->NUMERO_CAJGUIASALIDA,
+                            $dua->PROVBULTOS_CAJGUIASALIDA,
+                            $dua->PROVPESO_CAJGUIASALIDA,
+                            $nombre_chofer,
+                            $placa_chofer)
+                    );
+
+                    $total_salida+=$dua->PROVBULTOS_CAJGUIASALIDA;
+                }
+
+                array_push(
+                    $arr_carta,
+                    array(
+                        $carta->ID_ADUCARTAPORTE,
+                        $carta->CODIGO_ADUCARTAPORTE,
+                        $carta->RAZON_EXTEMPRESA,
+                        $carta->DESCMERCADERIA_ADUCARTAPORTE,
+                        $carta->NROBULTOS_ADUCARTAPORTE,
+                        $carta->PESOBULTOS_ADUCARTAPORTE,
+                        $total_salida,
+                        $arr_duas)
+                );
+            }
+
+            array_push($arr_manifiesto,array($manifiesto->MANIFIESTO,$manifiesto->FECHA,$manifiesto->HORA,$manifiesto->DESC_GENUMEDIDA,$arr_carta));
+        }
+
+        return $arr_manifiesto;
+    }
 }

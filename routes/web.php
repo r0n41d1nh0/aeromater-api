@@ -48,6 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/reportes/reporte-salida-diaria', [ReportesController::class,'reporteSalidaDiaria'])->name('reportes.reporte_salida_diaria');
     Route::get('/reportes/manifiesto', [ReportesController::class,'manifiesto'])->name('reportes.manifiesto');
     Route::get('/reportes/reporte-manifiesto/{manifiesto}', [ReportesController::class,'reporteManifiesto'])->name('reportes.reporte_manifiesto');
+    Route::get('/reportes/ingresos', [ReportesController::class,'ingresos'])->name('reportes.ingresos');
+    Route::get('/reportes/reporte-ingresos', [ReportesController::class,'reporteIngresos'])->name('reportes.reporte_ingresos');
+    Route::get('/reportes/movimiento-consignatario', [ReportesController::class,'movimientoConsignatario'])->name('reportes.movimiento_consignatario');
+    Route::get('/reportes/reporte-movimiento-consignatario', [ReportesController::class,'reporteMovimientoConsignatario'])->name('reportes.reporte_movimiento_consignatario');
 });
 
 require __DIR__.'/auth.php';

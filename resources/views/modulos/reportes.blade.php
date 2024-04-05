@@ -16,8 +16,8 @@
         
         <li>Reportes
             <ul>
-                <li><a href="">Ingreso de mercaderia entre fechas</a></li>
-                <li><a href="">Movimiento de mercaderia por consignatario</a></li>
+                <li><a href="{{ route('reportes.ingresos') }}">Ingreso de mercaderia entre fechas</a></li>
+                <li><a href="{{ route('reportes.movimiento_consignatario') }}">Movimiento de mercaderia por consignatario</a></li>
             </ul>
         </li>
         <li><a href="{{ route('inicio') }}">Salir</a></li>

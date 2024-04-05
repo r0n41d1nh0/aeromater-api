@@ -27,4 +27,14 @@ class ReportesService
     {
         return $this->reportesRepository->manifiesto($manifiesto);
     }
+
+    public function ingresos($fecha_desde,$fecha_hasta,$tipo)
+    {
+        return $this->reportesRepository->ingresos($fecha_desde,$fecha_hasta,$tipo);
+    }
+
+    public function reporteMovimientoConsignatario($fecha_desde,$fecha_hasta,$tipo,$valor)
+    {
+        return $this->reportesRepository->reporteMovimientoConsignatario($fecha_desde,$fecha_hasta,$tipo,$valor);
+    }
 }
