@@ -15,4 +15,9 @@ class PaginasController extends Controller
 	{
 		return view('modulos.reportes');
 	}
+
+	public function caja()
+	{
+		return view('modulos.caja');
+	}
 }

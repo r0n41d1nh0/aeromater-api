@@ -6,6 +6,7 @@ use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\PaginasController;
 use App\Http\Controllers\ReportesController;
+use App\Http\Controllers\CajaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/reportes/reporte-ingresos', [ReportesController::class,'reporteIngresos'])->name('reportes.reporte_ingresos');
     Route::get('/reportes/movimiento-consignatario', [ReportesController::class,'movimientoConsignatario'])->name('reportes.movimiento_consignatario');
     Route::get('/reportes/reporte-movimiento-consignatario', [ReportesController::class,'reporteMovimientoConsignatario'])->name('reportes.reporte_movimiento_consignatario');
+
+    Route::get('/caja', [PaginasController::class,'caja'])->name('caja');
+    Route::get('/caja/listar-dua', [CajaController::class,'listarDua'])->name('caja.listar_dua');
 });
 
 require __DIR__.'/auth.php';

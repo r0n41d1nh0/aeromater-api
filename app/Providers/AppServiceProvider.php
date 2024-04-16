@@ -7,14 +7,17 @@ use App\Repositories\IngresosRepository;
 use App\Repositories\PersonasRepository;
 use App\Repositories\EmpresasRepository;
 use App\Repositories\ReportesRepository;
+use App\Repositories\CajaRepository;
 use App\Repositories\IngresosRepositoryInterface;
 use App\Repositories\PersonasRepositoryInterface;
 use App\Repositories\EmpresasRepositoryInterface;
 use App\Repositories\ReportesRepositoryInterface;
+use App\Repositories\CajaRepositoryInterface;
 use App\Services\IngresosService;
 use App\Services\PersonasService;
 use App\Services\EmpresasService;
 use App\Services\ReportesService;
+use App\Services\CajaService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ReportesRepositoryInterface::class, ReportesRepository::class);
         $this->app->bind(ReportesService::class, function ($app) { return new ReportesService($app->make(ReportesRepositoryInterface::class)); });
+
+        $this->app->bind(CajaRepositoryInterface::class, CajaRepository::class);
+        $this->app->bind(CajaService::class, function ($app) { return new CajaService($app->make(CajaRepositoryInterface::class)); });
     }
 
     /**
