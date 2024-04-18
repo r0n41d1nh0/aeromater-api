@@ -18,4 +18,8 @@ class CajaController extends Controller
         $duas = $this->cajaService->listarDua($request->anio,$request->dua);
         return view('modulos.caja.lista-dua',compact(['duas']));
     }
+
+    public function nuevaDua(){
+        return view('modulos.caja.nueva-dua');
+    }
 }

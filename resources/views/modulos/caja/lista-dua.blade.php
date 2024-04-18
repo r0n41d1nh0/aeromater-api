@@ -1,7 +1,4 @@
 @extends('layouts.main')
-@section('content.css')
-    <link href="{{ asset('vendor/bootstrap/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet">
-@endsection
 @section('content')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -42,9 +39,10 @@
             </div>
         </div>
         <hr>
-        <input type="submit" class="btn btn-primary btn-sm" name="btnBuscar" value="Buscar"> <a href="" class="btn btn-primary btn-sm">Nuevo</a>  <a href="{{ route('caja') }}" class="btn btn-primary btn-sm">Salir</a>
+        <input type="submit" class="btn btn-primary btn-sm" name="btnBuscar" value="Buscar"> <a href="{{ route('caja.nueva_dua') }}" class="btn btn-primary btn-sm">Nuevo</a>  <a href="{{ route('caja') }}" class="btn btn-primary btn-sm">Salir</a>
     </form>
     <br>
+    @if(count($duas) > 0 )
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-condensed table-sm" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -69,25 +67,6 @@
             </tbody>
         </table>
     </div>
-@endsection
-@section('content.js')
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap-datepicker.es.min.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.inputmask.bundle.js') }}"></script>
-    <script>
-        $('#fecha_desde').datepicker({
-            format: "dd/mm/yyyy",
-            autoclose: true,
-            language: "es",
-            todayHighlight: true
-        });
-
-        $('#fecha_hasta').datepicker({
-            format: "dd/mm/yyyy",
-            autoclose: true,
-            language: "es",
-            todayHighlight: true
-        });
-
-    </script>
+    {{ $duas->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
+    @endif
 @endsection

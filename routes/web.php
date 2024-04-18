@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/caja', [PaginasController::class,'caja'])->name('caja');
     Route::get('/caja/listar-dua', [CajaController::class,'listarDua'])->name('caja.listar_dua');
+    Route::get('/caja/nueva-dua', [CajaController::class,'nuevaDua'])->name('caja.nueva_dua');
 });
 
 require __DIR__.'/auth.php';
