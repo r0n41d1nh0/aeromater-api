@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\PaginasController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\CajaController;
+use App\Http\Controllers\ManifiestosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/personas/consultar-por-documento/tipo/{tipo_documento}/numero/{numero}', [PersonasController::class,'consultaPersona'])->name('personas.consulta');
 
     Route::get('/empresas/consultar-por-ruc/{ruc}', [EmpresasController::class,'consultaEmpresa'])->name('empresas.consulta');
+    Route::get('/empresas/buscar-agencia', [EmpresasController::class,'buscarAgencia'])->name('empresas.buscar_agencia');
 
     Route::get('/reportes', [PaginasController::class,'reportes'])->name('reportes');
     Route::get('/reportes/salida-diaria', [ReportesController::class,'salidaDiaria'])->name('reportes.salida_diaria');
@@ -57,6 +59,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/caja', [PaginasController::class,'caja'])->name('caja');
     Route::get('/caja/listar-dua', [CajaController::class,'listarDua'])->name('caja.listar_dua');
     Route::get('/caja/nueva-dua', [CajaController::class,'nuevaDua'])->name('caja.nueva_dua');
+    Route::post('/caja/registrar-dua', [CajaController::class,'registrarDua'])->name('caja.registrar_dua');
+    Route::get('/caja/dua/{dua}', [CajaController::class,'editarDua'])->name('caja.editar_dua');
+    Route::post('/caja/actualizar-dua', [CajaController::class,'actualizarDua'])->name('caja.actualizar_dua');
+
+    Route::get('/manifiestos/consultar/anio/{anio}/numero/{numero}', [ManifiestosController::class,'consultaManifiesto'])->name('manifiestos.consulta');
+
 });
 
 require __DIR__.'/auth.php';

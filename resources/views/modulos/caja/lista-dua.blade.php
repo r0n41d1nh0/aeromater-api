@@ -61,7 +61,7 @@
                     <td>{{ $dua->CODIGO_ADUMANIFIESTO }}</td>
                     <td>{{ $dua->CODIGO_ADUCARTAPORTE }}</td>
                     <td>{{ utf8_decode($dua->RAZON_EXTEMPRESA) }}</td>
-                    <td></td>
+                    <td><a href="{{ route('caja.editar_dua',[$dua->CODIGO_ADUDUA]) }}" class="">Modificar</a></td>
                 </tr>
                 @endforeach
             </tbody>

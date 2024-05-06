@@ -9,8 +9,14 @@
         </li>
         <li class="breadcrumb-item "><a href="{{ route('caja') }}">Caja</a></li>
         <li class="breadcrumb-item "><a href="{{ route('caja.listar_dua') }}">DUA</a></li>
-        <li class="breadcrumb-item ">Nueva DUA</li>
+        <li class="breadcrumb-item ">DUA {{ $dua->CODIGO_ADUDUA}}</li>
     </ol>
+    @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{Session::get('success')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -19,31 +25,31 @@
             </div>
         @endforeach
     @endif
-    <p class="lead">Nueva DUA</p>
-    <form action="{{ route('caja.registrar_dua') }}" method="post">
+    <p class="lead">Modificar DUA</p>
+    <form action="{{ route('caja.actualizar_dua') }}" method="post">
         @csrf
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">DUA</label>
             <div class="col-md-4">
-                <input type="text" name="dua" id="dua" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="dua" id="dua" value="{{ $dua->CODIGO_ADUDUA}}" class="form-control form-control-sm" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Régimen</label>
             <div class="col-md-2">
-                <input type="text" name="regimen" id="regimen" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="regimen" id="regimen" value="{{ $dua->REGIMEN_ADUDUA }}" class="form-control form-control-sm" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Manifiesto</label>
             <div class="col-md-1">
-                <input type="text" name="tipo" id="tipo" class="form-control form-control-sm" autocomplete="off" readonly>
+                <input type="text" name="tipo" id="tipo" value="{{ explode('-',$dua->CODIGO_ADUMANIFIESTO)[0] }}" class="form-control form-control-sm" autocomplete="off" readonly>
             </div>
             <div class="col-md-1">
-                <input type="text" name="anio" id="anio" value="{{ date('Y') }}" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="anio" id="anio" value="{{ explode('-',$dua->CODIGO_ADUMANIFIESTO)[1] }}" class="form-control form-control-sm" autocomplete="off">
             </div>
             <div class="col-2">
-                <input type="text" name="numero" id="numero" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="numero" id="numero" value="{{ explode('-',$dua->CODIGO_ADUMANIFIESTO)[2] }}" class="form-control form-control-sm" autocomplete="off">
             </div>
             <div class="col-1">
                 <input type="button" id="btn_consultar" class="btn btn-secondary btn-sm" value="Consultar" >
@@ -52,74 +58,74 @@
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Carta Porte</label>
             <div class="col-md-4">
-                <input type="text" name="cp" id="cp" class="form-control form-control-sm" autocomplete="off">
-                <input type="hidden" name="id_cp" id="id_cp">
+                <input type="text" name="cp" id="cp" value="{{ $dua->CODIGO_ADUCARTAPORTE }}" class="form-control form-control-sm" autocomplete="off">
+                <input type="hidden" name="id_cp" id="id_cp" value="{{ $dua->ID_ADUCARTAPORTE }}">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">RUC</label>
             <div class="col-md-4">
-                <input type="text" name="ruc" id="ruc" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="ruc" id="ruc" value="{{ $dua->RUC_EXTEMPRESA }}" class="form-control form-control-sm" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Consignatario</label>
             <div class="col-md-6">
-                <input type="text" name="consignatario" id="consignatario" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="consignatario" id="consignatario" value="{{ $dua->CONSIGNATARIO }}" class="form-control form-control-sm" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Agencia</label>
             <div class="col-md-4">
-                <input type="text" name="agencia" id="agencia" class="form-control form-control-sm" data-provide="typeahead" autocomplete="off">
+                <input type="text" name="agencia" id="agencia" value="{{ $dua->AGENCIA }}" class="form-control form-control-sm" data-provide="typeahead" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">FOB</label>
             <div class="col-md-2">
-                <input type="text" name="fob" id="fob" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="fob" id="fob" value="{{ $dua->FOB_ADUDUA }}" class="form-control form-control-sm" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">CIF</label>
             <div class="col-md-2">
-                <input type="text" name="cif" id="cif" class="form-control form-control-sm" autocomplete="off">
+                <input type="text" name="cif" id="cif" value="{{ $dua->CIF_ADUDUA }}" class="form-control form-control-sm" autocomplete="off">
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Mercaderia</label>
             <div class="col-md-6">
-                <textarea class="form-control form-control-sm" id="mercaderia" name='mercaderia' rows="3" autocomplete="off"></textarea>
+                <textarea class="form-control form-control-sm" id="mercaderia" name='mercaderia' rows="3" autocomplete="off">{{ $dua->DESCMERCADERIA_ADUCARTAPORTE }}</textarea>
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Bultos</label>
             <div class="col-md-2">
-                <input type="text" name="bultos" class="form-control form-control-sm" >
+                <input type="text" name="bultos" value="{{ $dua->NROBULTOS_ADUDUA }}" class="form-control form-control-sm" >
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Peso</label>
             <div class="col-md-2">
-                <input type="text" name="peso" class="form-control form-control-sm" >
+                <input type="text" name="peso" value="{{ $dua->PESOBULTOS_ADUDUA }}" class="form-control form-control-sm" >
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Fecha y hora de levante</label>
             <div class="col-md-2">
-                <input type="text" name="fecha_levante" id="fecha_levante" value="" class="form-control form-control-sm" >
+                <input type="text" name="fecha_levante" id="fecha_levante" value="{{ date('d/m/Y', strtotime($dua->FECHA_LEVANTE)) }}" class="form-control form-control-sm" >
             </div>
             <div class="col-md-2">
-                <input type="text" name="hora_levante" id="hora_levante" value="" class="form-control form-control-sm" >
+                <input type="text" name="hora_levante" id="hora_levante" value="{{ $dua->HORA_LEVANTE }}" class="form-control form-control-sm" >
             </div>
         </div>
         <div class="row g-3 align-items-center">
             <label class="col-md-2 col-form-label">Fecha y hora de salida</label>
             <div class="col-md-2">
-                <input type="text" name="fecha_salida" id="fecha_salida" value="" class="form-control form-control-sm" >
+                <input type="text" name="fecha_salida" id="fecha_salida" value="{{ date('d/m/Y', strtotime($dua->FECHA_SALIDA)) }}" class="form-control form-control-sm" >
             </div>
             <div class="col-md-2">
-                <input type="text" name="hora_salida" id="hora_salida" value="" class="form-control form-control-sm" >
+                <input type="text" name="hora_salida" id="hora_salida" value="{{ $dua->HORA_SALIDA }}" class="form-control form-control-sm" >
             </div>
         </div>
         <hr>
@@ -252,7 +258,6 @@
                 }
             });
             */
-
             var agencias = {!! json_encode($agencias) !!}
             $('#agencia').typeahead({
                 source: agencias

@@ -19,4 +19,15 @@ class EmpresasController extends Controller
         return $this->empresasService->consultaEmpresa($ruc);
     }
 
+    public function buscarAgencia(Request $request)
+    {
+        $agencias=$this->empresasService->buscarAgencia($request->agencia);
+        $arr_agencias=[];
+        foreach($agencias as $agencia){
+            array_push($arr_agencias, utf8_decode($agencia->RAZON_EXTEMPRESA));
+        }
+
+        return response()->json($arr_agencias);
+    }
+
 }
