@@ -87,4 +87,9 @@ class CajaController extends Controller
 
         return redirect()->route('caja.editar_dua',[$request->dua])->withSuccess('Actualización exitosa');
     }
+
+    public function nuevaGuiaSalida(){
+        $agencias = $this->empresasService->agencias();
+        return view('modulos.caja.nueva-guia-salida',compact(['agencias']));
+    }
 }

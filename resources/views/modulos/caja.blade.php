@@ -10,7 +10,7 @@
         <li>Guía de salida
             <ul>
                 <li><a href="{{ route('caja.listar_dua') }}">DUA</a></li>
-                <li><a href="">Guía de salida</a></li>
+                <li><a href="{{ route('caja.nueva_guia_salida') }}">Guía de salida</a></li>
             </ul>
         </li>
         <li><a href="{{ route('inicio') }}">Salir</a></li>

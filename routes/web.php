@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/caja/registrar-dua', [CajaController::class,'registrarDua'])->name('caja.registrar_dua');
     Route::get('/caja/dua/{dua}', [CajaController::class,'editarDua'])->name('caja.editar_dua');
     Route::post('/caja/actualizar-dua', [CajaController::class,'actualizarDua'])->name('caja.actualizar_dua');
+    Route::get('/caja/nueva-guia-salida', [CajaController::class,'nuevaGuiaSalida'])->name('caja.nueva_guia_salida');
 
     Route::get('/manifiestos/consultar/anio/{anio}/numero/{numero}', [ManifiestosController::class,'consultaManifiesto'])->name('manifiestos.consulta');
 
